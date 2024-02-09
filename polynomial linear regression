@@ -1,0 +1,48 @@
+# Polynomial Regression
+
+# Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+# Importing the dataset
+dataset = pd.read_csv('Position_Salaries.csv')
+x = dataset.iloc[:, 1:-1].values
+y = dataset.iloc[:, -1].values
+dataset=pd.read_csv("Position_Salaries.csv")
+linreg=LinearRegression()
+linreg.fit(x,y)
+polyreg=PolynomialFeatures(degree=4)# poly equ me jo last degree 
+xpoly=polyreg.fit_transform(x)#new matrix of features x
+linregtwo=LinearRegression()#polynomial regression model
+linregtwo.fit(xpoly,y)#linear reg model of new matrix and y
+#linear regression graph
+plt.scatter(x,y,color="red")#red coordinates of (x,y)
+plt.plot(x,linreg.predict(x),color="blue")
+plt.title("truth or bluff (LR) type")
+plt.xlabel("position")
+plt.ylabel("salary")
+plt.show()
+#polynomial regression graph
+plt.scatter(x,y,color="red")
+plt.plot(x,linregtwo.predict(polyreg.fit_transform(x)),color="blue")
+plt.title("truth or bluff")
+plt.xlabel("position")
+plt.ylabel("salary")
+plt.show()
+#for higher resolution
+X_grid = np.arange(min(X), max(X), 0.1)
+X_grid = X_grid.reshape((len(X_grid), 1))
+plt.scatter(X, y, color = 'red')
+plt.plot(X_grid, lin_reg_2.predict(poly_reg.fit_transform(X_grid)), color = 'blue')
+plt.title('Truth or Bluff (Polynomial Regression)')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
+
+#predicting new result from linear regression
+linreg.predict([[6.5]])
+#predicting polynomial regression
+print(linregtwo.predict(polyreg.fit_transform([[6.5]])))
+
